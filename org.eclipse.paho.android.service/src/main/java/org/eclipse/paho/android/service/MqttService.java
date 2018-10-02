@@ -351,8 +351,12 @@ public class MqttService extends Service implements MqttTraceHandler {
    *            identifies the MqttConnection to use
    */
   public void close(String clientHandle) {
-    MqttConnection client = getConnection(clientHandle);
-    client.close();
+    try {
+      MqttConnection client = getConnection(clientHandle);
+      client.close();
+    } catch (IllegalArgumentException e){
+      e.printStackTrace();
+    }
   }
 
   /**
